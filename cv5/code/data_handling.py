@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 from sklearn.datasets import load_breast_cancer
-from sklearn.preprocessing import StandardScaler, MinMaxScaler
+from sklearn.preprocessing import StandardScaler, MinMaxScaler, RobustScaler
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from typing import Tuple, List, Optional, Callable
@@ -69,7 +69,8 @@ class Dataset:
         """
         scalers = {
             'standard': StandardScaler(),
-            'normalize': MinMaxScaler()
+            'normalize': MinMaxScaler(),
+            'robust': RobustScaler()
         }
         scaler = scalers.get(scale_type)
         if not scaler:
@@ -196,3 +197,61 @@ class Dataset:
         self.__generic_plot(plt.hist, scaled_feature, bins=20, color='orange', alpha=0.7,
                             title=f"After Scaling: {feature_name}", xlabel=feature_name, ylabel="Frequency",
                             figsize=(12, 6))
+
+  # Uloha 1:
+    def calculate_statistics(self) -> pd.DataFrame:
+        """
+        Calculates basic statistics (mean, median, standard deviation)
+        """
+        df = pd.DataFrame(self.data, columns=self.feature_names)
+        statistics = df.agg(['mean', 'median', 'std'])
+        statistics = statistics.rename(index={'mean': 'Mean', 'median': 'Median', 'std': 'Std'})
+        return statistics
+ 
+    # Uloha 3 + 4:
+    def summarize_features(self, feature_names: Optional[List[str]] = None) -> pd.DataFrame:
+        """
+        Provides a summary of each feature, including the number of unique values,
+        the most common value, and its frequency.
+        An optional parameter feature_names can be used to summarize only selected features.
+        """
+        df = pd.DataFrame(self.data, columns=self.feature_names)
+        if feature_names is not None:
+            df = df[feature_names]
+        summary = pd.DataFrame({
+            'Unique Values': df.nunique(),
+            'Most Common Value': df.apply(lambda col: col.value_counts().idxmax()),
+            'Frequency': df.apply(lambda col: col.value_counts().max())
+        })
+        return summary
+ 
+ 
+if __name__ == "__main__":
+    dataset = Dataset()
+ 
+    # Uloha 1:
+    print("=== Uloha 1: Zakladne statistiky ===")
+    stats = dataset.calculate_statistics()
+    print(stats)
+ 
+    # Uloha 2:
+    print("\n=== Uloha 2: Robustne skaloanie ===")
+    X_train, X_test, y_train, y_test = dataset.split_data()
+    X_train_robust, X_test_robust = dataset.scale_data(X_train, X_test, scale_type='robust')
+    dataset.plot_all_features_before_after_scaling(X_train, X_train_robust, scale_type='Robust Scaling')
+ 
+    # Uloha 3:
+    print("\n=== Uloha 3: Zhrnutie vsetkych vlastnosti ===")
+    summary = dataset.summarize_features()
+    print(summary)
+ 
+    # Uloha 4: 
+    print("\n=== Uloha 4: Zhrnutie vybranych vlastnosti ===")
+    selected = ['mean radius', 'mean texture', 'mean area']
+    summary_selected = dataset.summarize_features(feature_names=selected)
+    print(summary_selected)
+
+    # Uloha 5: 
+    print("\n=== Uloha 5: Dokumentacia ===")
+    print("Z grafu pred škálovaním je vidieť, že vlastnosti ako mean area a worst area majú výrazne väčší rozsah hodnôt v porovnaní s ostatnými vlastnosťami")
+    print("Po aplikovaní Robust Scalingu sa všetky vlastnosti dostali do porovnateľného rozsahu")
