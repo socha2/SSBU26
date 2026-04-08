@@ -1,9 +1,15 @@
 from matplotlib import pyplot as plt
 from typing import Callable
+import os
 
 
 class BasePlotter:
     """Abstract base class for common plotting functionality."""
+
+    def __init__(self, save_dir: str = "outputs/plots"):
+        self.save_dir = save_dir
+        os.makedirs(self.save_dir, exist_ok=True)
+        self._plot_counter = 0
 
     def __generic_plot(self, plot_func: Callable, *args, **kwargs):
         """
@@ -19,6 +25,12 @@ class BasePlotter:
         plot_func(*args, **kwargs)
         self.__apply_plot_labels(general_kwargs)
         plt.tight_layout()
+
+        self._plot_counter += 1
+        title_slug = (general_kwargs.get('title') or f"plot_{self._plot_counter}")
+        title_slug = title_slug.replace(' ', '_').replace('/', '_').replace(':', '').lower()
+        filepath = os.path.join(self.save_dir, f"{title_slug}.png")
+        plt.savefig(filepath, dpi=150, bbox_inches='tight')
         plt.show()
 
     def __apply_plot_labels(self, general_kwargs):
