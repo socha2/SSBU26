@@ -14,7 +14,15 @@ Pridajte do kódu ďalší model strojového učenia (ľubovoľný), a taktiež 
 
 **Uveďte aký ML model a hodnoty jeho parametrov ste použili:**
 
-#TODO - Popis
+Pridaný model - Random Forest
+
+parametre pre Grid Search (
+"Random Forest": {
+    "n_estimators": [50, 100, 200],
+    "max_depth": [None, 5, 10],
+    "min_samples_split": [2, 5]
+} 
+)
 
 ### Úloha 2 (2b)
 
@@ -22,7 +30,7 @@ Implementujte ďalšiu (ľubovoľnú) metriku pre evaluáciu modelov. Nezabudnit
 
 **Uveďte akú metriku ste doplnili:**
 
-#TODO - Metrika
+Pridal som Precision
 
 ### Úloha 3 (1b)
 
@@ -32,7 +40,16 @@ Do implementácie pridajte ukladanie všetkých grafov, ktoré sa vytvárajú pr
 
 **V skripte `main.py`** nastavte počet replikácií na vyššie číslo (rozumne, podľa vlastného uváženia). Vykonajte beh aplikácie s Vašou implementáciou. Po skončení behu zanalyzujte vygenerované grafy a pár vetami popíšte ich interpretáciu. (Napr. v čom je ktorý ML model lepší, a pod.)
 
-#TODO - Interpretácia
+Použil som 20 replikácií.
+
+Density ploty ukazujú že oba modely si vedú veľmi dobre - accuracy sa pohybuje okolo 0.97. Random Forest má trochu užšie rozdelenie, čo znamená že jeho výsledky sú konzistentnejšie medzi replikáciami. Logistická regresia má rozdelenie trochu roztiahnutejšie, teda občas skóruje trochu horšie.
+
+Graf priebehu accuracy potvrdzuje to isté - oba modely skáču hore-dole medzi replikáciami (to je normálne, lebo dáta sa zakaždým inak rozmiešajú), ale priemer ostáva stabilný okolo 0.97.
+
+Precision je tiež vysoká u oboch modelov, čo je v kontexte diagnózy rakoviny dôležité
+
+Matice zámien ukazujú že modely robia len málo chýb. Najhoršia chyba by bola falošne negatívna, teda keď má pacient rakovinu ale model povie že nie. Tejto chyby je relatívne málo.
+
 
 **Odovzdávanie riešenia:** Ako súčasť riešenia zahrňte okrem odpovedí na otázky aj skripty s Vašou implementáciou, vygenerované logy a grafy (všetko môžete dať na Github).
 
