@@ -31,6 +31,8 @@ app_ui = ui.page_fluid(
             # Make the slider dynamic by rendering it in the server
             ui.output_ui("dynamic_slider"),
             ui.input_action_button("generate_data", "Generate Data"),
+            ui.input_action_button("calculate_avg", "Vypočítať priemer"),
+            ui.output_text("avg_value"),
             ui.input_radio_buttons("view_type", "Choose View",
                                    choices=list(data.views.values()), selected="Visualization"),
             # Dynamic UI element
