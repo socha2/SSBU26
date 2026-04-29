@@ -10,7 +10,8 @@ Dataset obsahuje údaje matky, dcéry a dvoch strýkov, ktorí sú bratmi muža,
 
 **Formulujte hypotézy pre riešenie úlohy:**
 
-#TODO
+H0 : Muž bol otcom dcéry, dcéra je neterou oboch strýkov.
+HA : Muž nebol otcom dcéry, dcéra a strýkovia nie sú v príbuzenskom vzťahu.
 
 ### Úloha 2 (4b)
 
@@ -18,4 +19,4 @@ Vykonajte analýzu pomocou nástroja FamLinkX. Ako referenčnú databázu použi
 
 **Uveďte LR a pravdepodobnosť (W) pre jednotlivé hypotézy a Váš záver analýzy:**
 
-#TODO
+LR ≈ 7,12 × 10⁴ a 1,24 × 10⁵ (Cluster/Merlin) v prospech H0, ktorému zodpovedá pravdepodobnosť W ≈ 99,9986 %, preto prijímame hypotézu H0 - Muž bol otcom dcéry, dcéra je neterou oboch strýkov.
