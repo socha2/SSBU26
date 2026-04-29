@@ -17,9 +17,9 @@ Normalizujte distribúciu datasetu (pre premenné aj vzorku).
 (Vyberte akúkoľvek kombináciu operácií, ktorá je podľa Vás najlepšia).
 
 **Ktoré operácie ste pri normalizácii použili?**
-Sample normalization: # TODO
-Data Transformation:  # TODO
-Data Scaling:         # TODO
+Sample normalization: Normalization by sum
+Data Transformation:  Log transformation (base 10)
+Data Scaling:         Auto scaling
 ### Úloha 2 (4b)
 
 Použite ľubovoľné štatistické metódy na analýzu datasetu (napr. t-test, correlations, PCA, PLS-DA, Dendrogram, Heatmap, K-means, RandomForest, ..) 
@@ -27,10 +27,10 @@ Použite ľubovoľné štatistické metódy na analýzu datasetu (napr. t-test, 
 **Uveďte aspoň 4 skutočnosti (z 4 rôznych metód), ktoré ste zistili analýzou datasetu:**
 
 (Napr. Pri použití pearsonovho korelačného koeficientu je najvyššia pozitívna korelácia medzi premennými x a y, a koeficient korelácie je 0.992.)
-1: # TODO
-2: # TODO
-3: # TODO
-4: # TODO
+1: PCA: PC1 a PC2 spolu vysvetľujú 37.7 % variancie a PERMANOVA test (F = 26.683, p = 0.001) potvrdil, že rozdiel medzi skupinami control a patient je štatisticky významný.
+2: PLS-DA: Optimálny 3-komponentový model dosiahol Q² ≈ 0.76, R² ≈ 0.93 a accuracy ≈ 0.98, čo znamená, že skupiny sú veľmi dobre oddeliteľné.
+3: T-test (FDR < 0.05): Z 200 NMR binov je 95 štatisticky významne odlišných medzi skupinami.
+4: Random Forest: OOB error 0.08 (accuracy 92 %), všetkých 25 kontrolných vzoriek bolo klasifikovaných správne a z 25 pacientov 21.
 
 Vygenerujte report z vykonanej analýzy a celý výsledný zip file odovzdajte ako prílohu k riešeniu zadania.
 
